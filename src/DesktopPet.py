@@ -11,7 +11,7 @@ class DesktopPet(QtWidgets.QLabel):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         # Load and resize pet image
-        self.pixmap = QtGui.QPixmap("pet.png")  # Replace with your image path
+        self.pixmap = QtGui.QPixmap(".\\assets\\pet.png")  # Replace with your image path
         self.pixmap = self.pixmap.scaled(378, 378, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
         self.setPixmap(self.pixmap)
         self.resize(self.pixmap.size())
