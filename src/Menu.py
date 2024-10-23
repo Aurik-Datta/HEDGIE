@@ -1,38 +1,11 @@
 from PyQt5 import QtWidgets
 import sys
-
-# todo use fully implemented task and task manager classes
-# Sample task
-class Task:
-    def __init__(self, name, description, status):
-        self.name = name
-        self.description = description
-        self.status = status
-
-# Sample task manager
-class TaskManager:
-    def __init__(self):
-        self.tasks = []
-
-    def create_task(self, name, description, status):
-        self.tasks.append(Task(name, description, status))
-
-    def update_task(self, index, name=None, description=None, status=None):
-        if 0 <= index < len(self.tasks):
-            if name is not None:
-                self.tasks[index].name = name
-            if description is not None:
-                self.tasks[index].description = description
-            if status is not None:
-                self.tasks[index].status = status
-
-    def delete_task(self, index):
-        if 0 <= index < len(self.tasks):
-            del self.tasks[index]
+from TaskManager import TaskManager
+from Task import Priority
 
 # Menu class that holds the task management window
 class Menu(QtWidgets.QWidget):
-    def __init__(self, task_manager):
+    def __init__(self, task_manager: TaskManager):
         super().__init__()
         self.task_manager = task_manager
         self.create_ui()
@@ -62,13 +35,18 @@ class Menu(QtWidgets.QWidget):
     # Helper function to update the task list on any action
     def update_task_list(self):
         self.task_list.clear()
-        for task in self.task_manager.tasks:
+        for task in self.task_manager.sort_by_deadline():
             self.task_list.addItem(task.name)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
+
     task_manager = TaskManager()
-    task_manager.create_task('task', 'desc', 'compl')
+    task_manager.create_task('Task 1')
+    task_manager.create_task('Task 2', description='Desc', deadline='2024-12-31', priority=Priority.HIGH, story_points=5)
+    task_manager.create_task('Task 3', deadline='2024-10-31', priority=Priority.MEDIUM)
+    print(task_manager)
+
     menu = Menu(task_manager)
     menu.show()
     sys.exit(app.exec_())
