@@ -22,3 +22,6 @@ build/
 
 # OS specific
 .DS_Store
+
+# Our project specific
+.data/

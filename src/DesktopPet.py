@@ -2,17 +2,24 @@ import sys
 import random
 from PyQt5 import QtWidgets, QtGui, QtCore
 
+
 class DesktopPet(QtWidgets.QLabel):
     def __init__(self):
         super().__init__()
 
         # Set window properties
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(
+            QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint
+        )
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         # Load and resize pet image
-        self.pixmap = QtGui.QPixmap(".\\assets\\pet.png")  # Replace with your image path
-        self.pixmap = self.pixmap.scaled(378, 378, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+        self.pixmap = QtGui.QPixmap(
+            ".\\assets\\pet.png"
+        )  # Replace with your image path
+        self.pixmap = self.pixmap.scaled(
+            378, 378, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation
+        )
         self.setPixmap(self.pixmap)
         self.resize(self.pixmap.size())
 
@@ -28,7 +35,7 @@ class DesktopPet(QtWidgets.QLabel):
         self.y_velocity = random.choice([-2, -1, 1, 2])
 
         # Movement control flags
-        self.movement_mode = 'automatic'  # Default movement mode
+        self.movement_mode = "automatic"  # Default movement mode
         self.is_paused = False  # Flag to pause movement
 
         # Start the timer for continuous movement
@@ -52,11 +59,13 @@ class DesktopPet(QtWidgets.QLabel):
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.RightButton:
             self.is_paused = True  # Pause movement
-            self.context_menu.exec_(event.globalPos())  # Show context menu at mouse position
+            self.context_menu.exec_(
+                event.globalPos()
+            )  # Show context menu at mouse position
             self.is_paused = False  # Resume movement after the menu is closed
 
     def move_pet(self):
-        if self.movement_mode == 'automatic' and not self.is_paused:
+        if self.movement_mode == "automatic" and not self.is_paused:
             # Update the position of the pet automatically
             current_x = self.x()
             current_y = self.y()
@@ -78,13 +87,14 @@ class DesktopPet(QtWidgets.QLabel):
             self.move(new_x, new_y)
 
     def set_automatic_movement(self):
-        self.movement_mode = 'automatic'
+        self.movement_mode = "automatic"
 
     def set_manual_movement(self):
-        self.movement_mode = 'manual'
+        self.movement_mode = "manual"
 
     def quit_pet(self):
         QtWidgets.QApplication.quit()  # Quit the application
+
 
 # Main application
 if __name__ == "__main__":
