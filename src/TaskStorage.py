@@ -52,6 +52,33 @@ class TaskStorage:
             print(f"Error loading tasks: {e}")
             return []
 
+    def clear_storage(self) -> bool:
+        """Clear all stored tasks"""
+        try:
+            if self.storage_path.exists():
+                self.storage_path.unlink()
+            return True
+        except Exception as e:
+            print(f"Error clearing storage: {e}")
+            return False
+
+    def get_storage_info(self) -> Dict[str, Any]:
+        """Get information about the storage"""
+        return {
+            "storage_location": str(self.storage_path),
+            "exists": self.storage_path.exists(),
+            "size_bytes": (
+                self.storage_path.stat().st_size if self.storage_path.exists() else 0
+            ),
+            "last_modified": (
+                datetime.fromtimestamp(self.storage_path.stat().st_mtime).isoformat()
+                if self.storage_path.exists()
+                else None
+            ),
+        }
+
+    # Private helper functions
+
     def _task_to_JSON(self, task: Task) -> Dict[str, Any]:
         """Convert Task object to dictionary for JSON serialization"""
         task_dict = {
@@ -113,28 +140,3 @@ class TaskStorage:
             task.mark_incomplete()
 
         return task
-
-    def clear_storage(self) -> bool:
-        """Clear all stored tasks"""
-        try:
-            if self.storage_path.exists():
-                self.storage_path.unlink()
-            return True
-        except Exception as e:
-            print(f"Error clearing storage: {e}")
-            return False
-
-    def get_storage_info(self) -> Dict[str, Any]:
-        """Get information about the storage"""
-        return {
-            "storage_location": str(self.storage_path),
-            "exists": self.storage_path.exists(),
-            "size_bytes": (
-                self.storage_path.stat().st_size if self.storage_path.exists() else 0
-            ),
-            "last_modified": (
-                datetime.fromtimestamp(self.storage_path.stat().st_mtime).isoformat()
-                if self.storage_path.exists()
-                else None
-            ),
-        }
