@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 import sys
 from TaskManager import TaskManager
-from Task import Priority
+
 
 # Menu class that holds the task management window
 class Menu(QtWidgets.QWidget):
@@ -16,11 +16,11 @@ class Menu(QtWidgets.QWidget):
 
         # Create list widget to display tasks
         self.task_list = QtWidgets.QListWidget()
-        
+
         # Create buttons
-        self.create_button = QtWidgets.QPushButton('Create Task')
-        self.update_button = QtWidgets.QPushButton('Update Task')
-        self.delete_button = QtWidgets.QPushButton('Delete Task')
+        self.create_button = QtWidgets.QPushButton("Create Task")
+        self.update_button = QtWidgets.QPushButton("Update Task")
+        self.delete_button = QtWidgets.QPushButton("Delete Task")
 
         # Add list and buttons to layout and set the layout to the main window
         self.layout.addWidget(self.task_list)
@@ -28,9 +28,8 @@ class Menu(QtWidgets.QWidget):
         self.layout.addWidget(self.update_button)
         self.layout.addWidget(self.delete_button)
         self.setLayout(self.layout)
-        self.setWindowTitle('Task Manager')
+        self.setWindowTitle("Task Manager")
         self.update_task_list()
-
 
     # Helper function to update the task list on any action
     def update_task_list(self):
@@ -38,13 +37,11 @@ class Menu(QtWidgets.QWidget):
         for task in self.task_manager.sort_by_deadline():
             self.task_list.addItem(task.name)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
     task_manager = TaskManager()
-    task_manager.create_task('Task 1')
-    task_manager.create_task('Task 2', description='Desc', deadline='2024-12-31', priority=Priority.HIGH, workload=5)
-    task_manager.create_task('Task 3', deadline='2024-10-31', priority=Priority.MEDIUM)
     print(task_manager)
 
     menu = Menu(task_manager)
