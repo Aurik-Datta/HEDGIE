@@ -15,10 +15,10 @@ class TaskManager:
         description: Optional[str] = None,
         deadline: Optional[date] = None,
         priority: Optional[Priority] = None,
-        story_points: Optional[int] = None
+        workload: Optional[int] = None
     ) -> Task:
         """Create a new task and add it to the task list"""
-        task = Task(name, description, deadline, priority, story_points)
+        task = Task(name, description, deadline, priority, workload)
         self.tasks.append(task)
         return task
     
@@ -50,7 +50,7 @@ class TaskManager:
         description: Optional[str] = None,
         deadline: Optional[date] = None,
         priority: Optional[Priority] = None,
-        story_points: Optional[int] = None
+        workload: Optional[int] = None
     ) -> bool:
         """Update task attributes if provided"""
         task = self.get_task_by_index(index)
@@ -65,8 +65,8 @@ class TaskManager:
             task.deadline = deadline
         if priority is not None:
             task.priority = priority
-        if story_points is not None:
-            task.story_points = story_points
+        if workload is not None:
+            task.workload = workload
         
         return True
 

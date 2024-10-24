@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     task_manager = TaskManager()
     task_manager.create_task('Task 1')
-    task_manager.create_task('Task 2', description='Desc', deadline='2024-12-31', priority=Priority.HIGH, story_points=5)
+    task_manager.create_task('Task 2', description='Desc', deadline='2024-12-31', priority=Priority.HIGH, workload=5)
     task_manager.create_task('Task 3', deadline='2024-10-31', priority=Priority.MEDIUM)
     print(task_manager)
 
